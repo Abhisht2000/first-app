@@ -2,17 +2,20 @@ import streamlit as st
 import openai
 
 # Set your OpenAI API key
-openai.api_key = "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"
+openai.api_key = "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"
 
 # Function to generate travel itinerary
 def generate_itinerary(user_inputs):
     try:
-        response = openai.Completion.create(
+        # Corrected API call using the new interface for OpenAI >= 1.0.0
+        response = openai.chat.Completion.create(
             model="gpt-4",  # Or "gpt-3.5-turbo"
-            prompt=f"Create a travel itinerary based on these details: {user_inputs}",
-            max_tokens=150
+            messages=[
+                {"role": "system", "content": "You are an AI travel assistant helping to create a personalized travel itinerary."},
+                {"role": "user", "content": f"Create a travel itinerary based on these details: {user_inputs}"}
+            ],
         )
-        return response.choices[0].text.strip()  # Extract the response content
+        return response['choices'][0]['message']['content']  # Extract the response content
     except Exception as e:
         return f"Error generating itinerary: {e}"
 
