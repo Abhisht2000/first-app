@@ -2,13 +2,13 @@ import streamlit as st
 import openai
 
 # Set your OpenAI API key
-openai.api_key = "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"
+openai.api_key = "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"
 
 # Function to generate travel itinerary
 def generate_itinerary(user_inputs):
     try:
-        # Corrected API call using the new interface for OpenAI >= 1.0.0
-        response = openai.chat.Completion.create(
+        # Corrected API call using `openai.chat_completions.create`
+        response = openai.chat_completions.create(
             model="gpt-4",  # Or "gpt-3.5-turbo"
             messages=[
                 {"role": "system", "content": "You are an AI travel assistant helping to create a personalized travel itinerary."},
