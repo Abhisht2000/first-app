@@ -33,20 +33,22 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Input form with user details - Layout improvement using columns
-col1, col2 = st.columns(2)
+with st.form("travel_form"):
+    col1, col2 = st.columns(2)
 
-with col1:
-    destination = st.text_input("Destination", "e.g., Paris", help="Where would you like to travel?")
-    budget = st.selectbox("Budget", ["Moderate", "Luxury", "Budget"], help="What is your budget?")
-    duration = st.number_input("Trip Duration (in days)", min_value=1, step=1, help="How many days will your trip be?")
-    purpose = st.selectbox("Purpose", ["Leisure", "Adventure", "Relaxation"], help="What is the purpose of your trip?")
+    with col1:
+        destination = st.text_input("Destination", "e.g., Paris", help="Where would you like to travel?")
+        budget = st.selectbox("Budget", ["Moderate", "Luxury", "Budget"], help="What is your budget?")
+        duration = st.number_input("Trip Duration (in days)", min_value=1, step=1, help="How many days will your trip be?")
+        purpose = st.selectbox("Purpose", ["Leisure", "Adventure", "Relaxation"], help="What is the purpose of your trip?")
 
-with col2:
-    preferences = st.text_area("Preferences", "e.g., Historical sites, Beaches, Local food", help="Any specific places or activities?")
-    dietary = st.selectbox("Dietary Preferences", ["Vegetarian", "Vegan", "Non-vegetarian"], help="Do you have dietary restrictions?")
-    mobility = st.text_input("Mobility Concerns", "e.g., None, Low walking tolerance", help="Do you have any mobility concerns?")
-    
-submitted = st.form_submit_button("Generate Itinerary")
+    with col2:
+        preferences = st.text_area("Preferences", "e.g., Historical sites, Beaches, Local food", help="Any specific places or activities?")
+        dietary = st.selectbox("Dietary Preferences", ["Vegetarian", "Vegan", "Non-vegetarian"], help="Do you have dietary restrictions?")
+        mobility = st.text_input("Mobility Concerns", "e.g., None, Low walking tolerance", help="Do you have any mobility concerns?")
+
+    # Submit button inside the form
+    submitted = st.form_submit_button("Generate Itinerary")
 
 # Process user inputs and generate itinerary
 if submitted:
