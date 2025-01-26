@@ -7,16 +7,12 @@ openai.api_key = "sk-proj-e3rZ36z30gZ3ZiIH5VVMA8ItpmMDocjFQpEdpNMm2kT3z_zkLYitxR
 # Function to generate travel itinerary
 def generate_itinerary(user_inputs):
     try:
-        messages = [
-            {"role": "system", "content": "You are an AI travel assistant helping to create a personalized travel itinerary."},
-            {"role": "user", "content": f"I want a travel itinerary with these details: {user_inputs}"}
-        ]
-        response = openai.ChatCompletion.create(
+        response = openai.Completion.create(
             model="gpt-4",  # Or "gpt-3.5-turbo"
-            messages=messages,
+            prompt=f"Create a travel itinerary based on these details: {user_inputs}",
+            max_tokens=150
         )
-        # Extract the assistant's message content
-        return response['choices'][0]['message']['content']
+        return response.choices[0].text.strip()  # Extract the response content
     except Exception as e:
         return f"Error generating itinerary: {e}"
 
