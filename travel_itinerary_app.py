@@ -11,7 +11,7 @@ def generate_itinerary(user_inputs):
             {"role": "system", "content": "You are an AI travel assistant helping to create a personalized travel itinerary."},
             {"role": "user", "content": f"I want a travel itinerary with these details: {user_inputs}"}
         ]
-       response = openai.Chat.completion.create(
+        response = openai.ChatCompletion.create(
             model="gpt-4",  # Or "gpt-3.5-turbo"
             messages=messages,
         )
@@ -20,20 +20,33 @@ def generate_itinerary(user_inputs):
     except Exception as e:
         return f"Error generating itinerary: {e}"
 
-# Streamlit UI
-st.title("AI Travel Itinerary Planner")
-st.markdown("### Create your personalized travel plan in just a few steps!")
+# Streamlit UI - Make it more visually appealing
+st.set_page_config(page_title="AI Travel Planner", page_icon="✈️", layout="wide")
 
-# Input form with user details
-with st.form("travel_form"):
-    destination = st.text_input("Destination", "e.g., Paris")
-    budget = st.text_input("Budget", "e.g., Moderate, Luxury, Budget")
-    duration = st.number_input("Trip Duration (in days)", min_value=1, step=1)
-    purpose = st.text_input("Purpose", "e.g., Leisure, Adventure, Relaxation")
-    preferences = st.text_area("Preferences", "e.g., Historical sites, Beaches, Local food")
-    dietary = st.text_input("Dietary Preferences", "e.g., Vegetarian, Vegan, Non-vegetarian")
-    mobility = st.text_input("Mobility Concerns", "e.g., None, Low walking tolerance")
-    submitted = st.form_submit_button("Generate Itinerary")
+# Add a travel banner image
+st.image("https://via.placeholder.com/1500x500.png?text=Your+Travel+Journey+Starts+Here", use_column_width=True)
+
+# Title and description
+st.markdown("""
+    <h1 style="color: #2c3e50; text-align: center;">Welcome to AI Travel Itinerary Planner</h1>
+    <p style="text-align: center; color: #34495e;">Create your personalized travel plan in just a few steps!</p>
+""", unsafe_allow_html=True)
+
+# Input form with user details - Layout improvement using columns
+col1, col2 = st.columns(2)
+
+with col1:
+    destination = st.text_input("Destination", "e.g., Paris", help="Where would you like to travel?")
+    budget = st.selectbox("Budget", ["Moderate", "Luxury", "Budget"], help="What is your budget?")
+    duration = st.number_input("Trip Duration (in days)", min_value=1, step=1, help="How many days will your trip be?")
+    purpose = st.selectbox("Purpose", ["Leisure", "Adventure", "Relaxation"], help="What is the purpose of your trip?")
+
+with col2:
+    preferences = st.text_area("Preferences", "e.g., Historical sites, Beaches, Local food", help="Any specific places or activities?")
+    dietary = st.selectbox("Dietary Preferences", ["Vegetarian", "Vegan", "Non-vegetarian"], help="Do you have dietary restrictions?")
+    mobility = st.text_input("Mobility Concerns", "e.g., None, Low walking tolerance", help="Do you have any mobility concerns?")
+    
+submitted = st.form_submit_button("Generate Itinerary")
 
 # Process user inputs and generate itinerary
 if submitted:
