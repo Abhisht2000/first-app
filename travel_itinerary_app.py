@@ -1,5 +1,4 @@
 import streamlit as st
-from openai import ChatCompletion
 import openai
 
 # Set your OpenAI API key
@@ -13,10 +12,11 @@ def generate_itinerary(user_inputs):
             {"role": "user", "content": f"I want a travel itinerary with these details: {user_inputs}"}
         ]
         response = openai.ChatCompletion.create(
-            model="gpt-4",
+            model="gpt-4",  # Or "gpt-3.5-turbo"
             messages=messages,
         )
-        return response.choices[0].message.content
+        # Extract the assistant's message content
+        return response['choices'][0]['message']['content']
     except Exception as e:
         return f"Error generating itinerary: {e}"
 
