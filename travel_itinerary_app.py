@@ -2,7 +2,7 @@ import streamlit as st
 import openai
 
 # Set your OpenAI API key
-openai.api_key = "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"
+openai.api_key = "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"
 
 # Function to generate travel itinerary
 def generate_itinerary(user_inputs):
