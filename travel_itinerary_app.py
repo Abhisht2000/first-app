@@ -7,17 +7,18 @@ openai.api_key = "sk-proj-e3rZ36z30gZ3ZiIH5VVMA8ItpmMDocjFQpEdpNMm2kT3z_zkLYitxR
 # Function to generate travel itinerary
 def generate_itinerary(user_inputs):
     try:
-        # Corrected API call using `openai.chat_completions.create`
-        response = openai.chat_completions.create(
+        # Corrected API call using `openai.ChatCompletion.create`
+        response = openai.ChatCompletion.create(
             model="gpt-4",  # Or "gpt-3.5-turbo"
             messages=[
                 {"role": "system", "content": "You are an AI travel assistant helping to create a personalized travel itinerary."},
                 {"role": "user", "content": f"Create a travel itinerary based on these details: {user_inputs}"}
             ],
         )
-        return response['choices'][0]['message']['content']  # Extract the response content
+        return response.choices[0].message.content  # Correctly access the response content
     except Exception as e:
         return f"Error generating itinerary: {e}"
+
 
 # Streamlit UI - Make it more visually appealing
 st.set_page_config(page_title="AI Travel Planner", page_icon="✈️", layout="wide")
