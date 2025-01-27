@@ -26,6 +26,7 @@ st.set_page_config(page_title="AI Travel Planner", page_icon="✈️", layout="w
 # Add a travel banner image
 st.image("https://via.placeholder.com/1500x500.png?text=Your+Travel+Journey+Starts+Here", use_column_width=True)
 
+
 # Title and description
 st.markdown("""
     <h1 style="color: #2c3e50; text-align: center;">Welcome to AI Travel Itinerary Planner</h1>
